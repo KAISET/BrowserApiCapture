@@ -295,10 +295,10 @@ btn_iniciar.pack(side="left", padx=5)
 btn_detener = ttk.Button(frame_acciones, text="🛑 Cerrar Navegador", command=detener_navegador, state=tk.DISABLED)
 btn_detener.pack(side="left", padx=5)
 
-btn_manual_run = ttk.Button(frame_acciones, text="🔄 Forzar Re-Filtrado Regex", command=procesar_analisis_regex)
+btn_manual_run = ttk.Button(frame_acciones, text="🔄 Re-Filtrar servicios", command=procesar_analisis_regex)
 btn_manual_run.pack(side="left", padx=15)
 
-btn_guardar = ttk.Button(frame_acciones, text="💾 Guardar Ambos JSON", command=guardar_archivo_json_final if 'guardar_archivo_json_final' in globals() else guardar_ambos_archivos)
+btn_guardar = ttk.Button(frame_acciones, text="💾 Guardar ambos archivos JSON", command=guardar_archivo_json_final if 'guardar_archivo_json_final' in globals() else guardar_ambos_archivos)
 btn_guardar.pack(side="right", padx=5)
 
 lbl_status = ttk.Label(root, text="Navegador inactivo", font=("Arial", 10, "italic"), foreground="gray")
@@ -309,10 +309,10 @@ frame_consolas = ttk.Frame(root, padding=5)
 frame_consolas.pack(fill="both", expand=True, padx=15, pady=5)
 
 # Columna Izquierda: JSON en Bruto
-col_izquierda = ttk.LabelFrame(frame_consolas, text=" 1. Historial JSON en Bruto (Sin Filtrar) ", padding=5)
+col_izquierda = ttk.LabelFrame(frame_consolas, text=" 1. Historial JSON sin filtrar ", padding=5)
 col_izquierda.pack(side="left", fill="both", expand=True, padx=5)
 
-btn_copiar_crudo = ttk.Button(col_izquierda, text="📋 Copiar JSON Bruto", command=copiar_crudo)
+btn_copiar_crudo = ttk.Button(col_izquierda, text="📋 Copiar JSON sin filtrar", command=copiar_crudo)
 btn_copiar_crudo.pack(anchor="e", pady=2)
 
 txt_json_crudo = tk.Text(col_izquierda, wrap="none", font=("Courier New", 10), bg="#1e1e1e", fg="#d4d4d4", insertbackground="white")
@@ -324,7 +324,7 @@ txt_json_crudo.pack(fill="both", expand=True)
 scroll_x_c.pack(fill="x")
 
 # Columna Derecha: JSON Filtrado Comparativo
-col_derecha = ttk.LabelFrame(frame_consolas, text=" 2. Reporte JSON Filtrado (Coincidencias Regex) ", padding=5)
+col_derecha = ttk.LabelFrame(frame_consolas, text=" 2. Reporte JSON Filtrado (Servicios) ", padding=5)
 col_derecha.pack(side="right", fill="both", expand=True, padx=5)
 
 btn_copiar_filtrado = ttk.Button(col_derecha, text="📋 Copiar Reporte Filtrado", command=copiar_filtrado)
