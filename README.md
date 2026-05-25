@@ -76,7 +76,7 @@ python app_windows.py
 
 * **En macOS (Bypass estricto de firmas SDK dinámicas):**
 ```bash
-SYSTEM_VERSION_COMPAT=1 python3 app.py
+SYSTEM_VERSION_COMPAT=1 python3 app_macos.py
 
 ```
 
@@ -110,7 +110,7 @@ El resultado se generará en `dist/app_windows/`. Comprime la carpeta **`app_win
 Ejecuta en la terminal de tu Mac:
 
 ```bash
-pyinstaller --noconfirm --onedir --windowed --copy-metadata playwright app.py
+pyinstaller --noconfirm --onedir --windowed --copy-metadata playwright app_macos.py
 
 ```
 
