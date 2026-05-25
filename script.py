@@ -14,10 +14,11 @@ from playwright.sync_api import sync_playwright
 # --- CONFIGURACIÓN GLOBAL ---
 capturas = []
 escenario_config = {
-    "nombre": "Enrolamiento USA - PC", 
-    "filtro_api": "https://api.aseastage.com/api/v2.0/",
-    "url_inicial": "https://shop.aseastage.com"
+    "nombre": "", 
+    "filtro_api": "",
+    "url_inicial": ""
 }
+
 playwright_instancia = None
 browser = None
 page = None
@@ -47,13 +48,13 @@ def obtener_ruta_dinamica(url_pagina):
 
 
 def obtener_etiqueta_escenario(url_pagina):
-    """Une tu escenario manual con la subpágina detectada en tiempo real."""
+    """Une un escenario manual con la subpágina detectada en tiempo real."""
     url_limpia = obtener_ruta_dinamica(url_pagina)
     return f"{escenario_config['nombre']} -> {url_limpia}"
 
 
 def agregar_captura_a_interfaz(item):
-    """Agrega la captura al cuadro izquierdo y actualiza el análisis por regex al vuelo."""
+    """Agrega la captura al cuadro izquierdo y actualiza el análisis por regex en ejecución."""
     capturas.append(item)
     
     # 1. Insertar en consola de capturas crudas (Izquierda)
@@ -104,7 +105,7 @@ def procesar_analisis_regex():
     # Filtro estricto: Eliminar las que se quedaron vacías []
     reporte_limpio = {plantilla: datos for plantilla, datos in reporte.items() if len(datos) > 0}
 
-    # 🌟 NUEVA FUNCIONALIDAD: Construir el bloque de resumen al inicio
+    # Construir el bloque de resumen al inicio
     resumen_conteos = {}
     for plantilla, items in reporte_limpio.items():
         total_llamadas = len(items)
@@ -220,14 +221,14 @@ def copiar_crudo():
     contenido = txt_json_crudo.get("1.0", tk.END).strip().rstrip(",")
     contenido_final = f"[\n{contenido}\n]" if contenido else "[]"
     root.clipboard_append(contenido_final)
-    messagebox.showinfo("Copiado", "¡JSON Completo en bruto copiado!")
+    messagebox.showinfo("Copiado", "¡JSON sin filtrar!")
 
 
 def copiar_filtrado():
     root.clipboard_clear()
     contenido = txt_json_filtrado.get("1.0", tk.END).strip()
     root.clipboard_append(contenido if contenido else "{}")
-    messagebox.showinfo("Copiado", "¡JSON Filtrado con Resumen copiado!")
+    messagebox.showinfo("Copiado", "¡JSON Filtrado!")
 
 
 def guardar_ambos_archivos():
@@ -254,7 +255,7 @@ def guardar_ambos_archivos():
 
 # --- DISEÑO DE LA INTERFAZ DE USUARIO (TKINTER) ---
 root = tk.Tk()
-root.title("Capturador de Servicios API & Comparador Regex Avanzado")
+root.title("Capturador de Servicios API & Comparador Regex")
 root.geometry("1250x850")
 
 # Panel Superior 1: Configuración Estándar
@@ -289,7 +290,7 @@ frame_input_plantillas.pack(fill="x", padx=15, pady=5)
 txt_plantillas = tk.Text(frame_input_plantillas, height=5, font=("Courier New", 10))
 txt_plantillas.pack(fill="x", side="left", expand=True, padx=5)
 
-valores_default = '"Shipping/Calculate",\n"Promotion/Validate/{Code}",\n"Product/PriceList",\n"Ecommerce/ShoppingCart/{shoppingCartId}/RecommendedProducts/{productId}",\n"Ecommerce/ShoppingCart/SaveAutoship",\n"Ecommerce/ShoppingCart/SaveOrder",\n"Ecommerce/ShoppingCart/{shoppingCartId}/Product"'
+valores_default = ''
 txt_plantillas.insert("1.0", valores_default)
 
 scroll_p = ttk.Scrollbar(frame_input_plantillas, orient="vertical", command=txt_plantillas.yview)
