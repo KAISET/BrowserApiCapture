@@ -137,5 +137,3 @@ Este proyecto está bajo la Licencia **MIT** - Consulta el archivo [LICENSE](htt
 **Desarrollado con ❤️ para la optimización de flujos de pruebas de software.**
 
 ```
-
----
