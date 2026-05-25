@@ -10,7 +10,7 @@ Una herramienta de escritorio intuitiva desarrollada en **Python 3.13** utilizan
 * **Interceptación de Tráfico en Tiempo Real:** Captura peticiones (`requests`) y respuestas (`responses`) de red de forma transparente mediante una instancia automatizada de Chromium (Google Chrome).
 * **Entrada Masiva de Plantillas:** Panel superior inteligente que acepta listas de URLs objetivo separadas por comas o saltos de línea, limpiando automáticamente comillas simples o dobles.
 * **Procesamiento Dinámico por Regex:** Convierte estructuras dinámicas como `{shoppingCartId}` o `{Code}` en patrones de expresiones regulares (`\d+`) de forma automática y segura.
-* **Interfaz de Doble Consola Oscura:** 1. **Consola Izquierda:** Historial completo de peticiones capturadas en bruto (JSON Raw).
+* **Interfaz de Doble Consola Oscura:** 1. **Consola Izquierda:** Historial completo de peticiones capturadas en bruto (JSON sin filtrar).
   2. **Consola Derecha:** Reporte JSON analítico estructurado en caliente con las coincidencias exactas.
 * **Módulo de Resumen Integrado:** El reporte filtrado calcula e inyecta un bloque de conteo rápido (`resumen_conteos`) al inicio del archivo para auditorías veloces sin necesidad de scroll infinito.
 * **Exportación Independiente:** Botones dedicados para copiar al portapapeles y guardar los archivos `capturas.json` y `reporte_plantillas.json` simultáneamente.
@@ -42,7 +42,6 @@ python -m venv venv
 
 ```
 
-
 * **En macOS (Instalador Oficial de Python.org recomendado):**
 ```bash
 python3 -m venv venv
@@ -50,14 +49,13 @@ source venv/bin/activate
 
 ```
 
-
 3. **Instalar dependencias:**
 ```bash
 pip install -r requirements.txt
 
 ```
 
-*(Nota: Si no tienes un archivo `requirements.txt`, instala directamente: `pip install playwright`)*
+*(Nota: Si no tienes un archivo `requirements.txt`, instala directamente con `pip install playwright pyinstaller`)*
 4. **Instalar los componentes de red de Playwright:**
 ```bash
 playwright install chromium
@@ -68,11 +66,11 @@ playwright install chromium
 
 ## 💻 Uso de la Aplicación
 
-Para lanzar la interfaz gráfica, ejecuta el script principal desde tu terminal con el entorno virtual activo:
+El proyecto se encuentra modularizado con un script optimizado para cada sistema operativo con el fin de evitar configuraciones redundantes:
 
 * **En Windows:**
 ```bash
-python app.py
+python app_windows.py
 
 ```
 
@@ -94,32 +92,29 @@ SYSTEM_VERSION_COMPAT=1 python3 app.py
 
 ## 📦 Empaquetado para Producción (Distribución)
 
-El proyecto está configurado para compilarse en binarios independientes utilizando **PyInstaller**. *(Nota: No se admite la compilación cruzada; compila en Windows para obtener el `.exe` y en Mac para el `.app`)*.
+El proyecto está configurado para compilarse en binarios independientes utilizando **PyInstaller**. *(Nota: No se admite la compilación cruzada; debes compilar en Windows para obtener el `.exe` y en Mac para la estructura `.app`)*.
 
-Instala el empaquetador en tu entorno:
+### Para Windows (`.exe` ejecutable autónomo):
+
+Ejecuta en la terminal de Windows:
 
 ```bash
-pip install pyinstaller
+pyinstaller --noconfirm --onedir --windowed --copy-metadata playwright app_windows.py
 
 ```
 
-### Para Windows (`.exe` ejecutable):
-
-```bash
-pyinstaller --noconfirm --onedir --windowed --copy-metadata playwright app.py
-
-```
-
-El resultado se generará en `dist/app/`. Distribuye la carpeta comprimida en un `.zip`. Buscará y heredará de forma automática el Google Chrome instalado en la máquina destino.
+El resultado se generará en `dist/app_windows/`. Comprime la carpeta **`app_windows`** en un archivo `.zip` para su distribución. El programa heredará de forma automática el Google Chrome instalado en la máquina destino de tus compañeros de trabajo.
 
 ### Para macOS (`.app` Nativo):
 
+Ejecuta en la terminal de tu Mac:
+
 ```bash
 pyinstaller --noconfirm --onedir --windowed --copy-metadata playwright app.py
 
 ```
 
-Para ejecutar el bundle `dist/app.app` en otras Macs de la empresa sin bloqueos de cuarentena por falta de firma digital, el usuario destino debe limpiar los atributos extendidos ejecutando en su terminal:
+El resultado se generará en `dist/app.app`. Para ejecutar este bundle en otras Macs de la empresa sin bloqueos de cuarentena preventiva por falta de firma digital, el usuario destino debe ejecutar en su terminal:
 
 ```bash
 xattr -cr /Ruta/A/Tu/Descarga/app.app
@@ -135,5 +130,5 @@ Este proyecto está bajo la Licencia **MIT** - Consulta el archivo [LICENSE](htt
 ---
 
 **Desarrollado con EL CORA Y GEMINI OFC, BC HAY QUE OPTIMIZAR 600 SERVICIOS, para la optimización de flujos de pruebas de software. :)**
-**MUCHAS GRACIAS A GEMINI**
 
+**MUCHAS GRACIAS A GEMINI**
