@@ -130,5 +130,4 @@ Este proyecto está bajo la Licencia **MIT** - Consulta el archivo [LICENSE](htt
 ---
 
 **Desarrollado con EL CORA Y GEMINI OFC, BC HAY QUE OPTIMIZAR 600 SERVICIOS, para la optimización de flujos de pruebas de software. :)**
-
 **MUCHAS GRACIAS A GEMINI**
